@@ -575,7 +575,7 @@ def parse_backup_xlsx(data: bytes):
     if not rows:
         return []
     header = [str(h).strip() if h is not None else "" for h in rows[0]]
-    required = ["歌名", "歌手", "语言", "风格", "url"]
+    required = ["歌名", "歌手", "语言", "风格", "SC"]
     if header[:5] != required:
         raise ValueError(f"xlsx 表头需为：{' | '.join(required)}")
     songs = []
@@ -592,7 +592,7 @@ def parse_backup_xlsx(data: bytes):
                 "artist": artist,
                 "language": language,
                 "genre": genre,
-                "url": url or "-",
+                "url": url,
             }
         )
     return songs
@@ -775,7 +775,7 @@ async def admin_action(request):
             artist = form.get("artist", "").strip()
             language = form.get("language", "").strip()
             genre = form.get("genre", "").strip()
-            url = form.get("url", "").strip() or "-"
+            url = form.get("url", "").strip()
             new_id = await add_song(conn, name, artist, language, genre, url)
             message = "歌曲已添加"
             if wants_json(request):
@@ -788,7 +788,7 @@ async def admin_action(request):
             artist = form.get("artist", "").strip()
             language = form.get("language", "").strip()
             genre = form.get("genre", "").strip()
-            url = form.get("url", "").strip() or "-"
+            url = form.get("url", "").strip()
             await update_song(conn, song_id, name, artist, language, genre, url)
             message = "歌曲已更新"
             if wants_json(request):

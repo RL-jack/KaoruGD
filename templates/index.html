@@ -326,9 +326,9 @@
                     <h4>{{ song.name }}</h4>
                     <p>歌手：{{ song.artist }}</p>
                     <p>风格：{{ song.genre }}</p>
-                    {% if song.url != '-' %}
-                    <a href="{{ song.url }}" target="_blank"><i class="fas fa-play"></i> 播放</a>
-                    {% endif %}
+                    {% if song.url and song.url != '-' %}
+<span>SC：{{ song.url }}</span>
+{% endif %}
                 </div>
                 {% endif %}
                 {% endfor %}
@@ -355,9 +355,9 @@
                     <td data-label="语言">{{ song.language }}</td>
                     <td data-label="风格">{{ song.genre }}</td>
                     <td data-label="操作">
-                        {% if song.url != '-' %}
-                        <a href="{{ song.url }}" target="_blank"><i class="fas fa-play"></i> 播放</a>
-                        {% endif %}
+                        {% if song.url and song.url != '-' %}
+<span>SC：{{ song.url }}</span>
+{% endif %}
                     </td>
                 </tr>
                 {% endfor %}
