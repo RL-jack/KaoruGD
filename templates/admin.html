@@ -287,9 +287,9 @@
                 <label for="live_url">直播间地址</label>
                 <input type="text" id="live_url" name="live_url" value="{{ settings.live_url }}" required>
 
-                <p class="tips">当前背景图：{{ settings.background_url }}</p>
-                <label>上传背景图（可选）</label>
-                <input type="file" name="background_file" accept="image/*">
+                <p class="tips">当前背景：{{ settings.background_url }}</p>
+                <label>上传背景图/视频（可选）</label>
+                <input type="file" name="background_file" accept="image/*,video/mp4">
 
                 <p class="tips">当前歌手头像：{{ settings.singer_url }}</p>
                 <label>上传歌手头像（可选）</label>

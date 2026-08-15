@@ -10,7 +10,9 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            {% if not settings.background_url.lower().endswith('.mp4') %}
             background-image: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.2)), url('{{ settings.background_url }}'); /* 背景加遮罩提升对比 */
+            {% endif %}
             background-size: cover;
             background-position: center;
             background-attachment: fixed; /* 背景图固定 */
@@ -22,6 +24,26 @@
             justify-content: flex-start; /* 内容从顶部开始 */
             color: #333;
         }
+        .background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+}
+
+.background-video-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.2));
+    z-index: -1;
+    pointer-events: none;
+}
         /* 导航栏样式 */
         .navbar {
             width: 100%;
@@ -294,6 +316,12 @@
     </style>
 </head>
 <body>
+    {% if settings.background_url.lower().endswith('.mp4') %}
+<video class="background-video" autoplay muted loop playsinline>
+    <source src="{{ settings.background_url }}" type="video/mp4">
+</video>
+<div class="background-video-overlay"></div>
+{% endif %}
     <!-- 导航栏 -->
     <div class="navbar">
         <a href="{{ settings.live_url }}">直播间</a>
@@ -397,9 +425,9 @@
 
             // 检查是否支持 navigator.clipboard
             if (navigator.clipboard) {
-                navigator.clipboard.writeText(songName)
+                navigator.clipboard.writeText(`点歌 ${songName}`)
                     .then(() => {
-                        alert('歌名已复制，快去点歌吧~');
+                        alert('点歌指令已复制，快去点歌吧~');
                     })
                     .catch(() => {
                         alert('复制失败，请手动复制。');
@@ -407,12 +435,12 @@
             } else {
                 // 使用备用方法（document.execCommand）
                 const tempInput = document.createElement('input');
-                tempInput.value = songName;
+                tempInput.value = `点歌 ${songName}`;
                 document.body.appendChild(tempInput);
                 tempInput.select();
                 document.execCommand('copy');
                 document.body.removeChild(tempInput);
-                alert('歌名已复制，快去点歌吧~');
+                alert('点歌指令已复制，快去点歌吧~');
             }
         }
 
