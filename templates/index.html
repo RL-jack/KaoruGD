@@ -365,6 +365,7 @@ background-image: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.2)), ur
                 <option value="{{ genre }}">{{ genre }}</option>
                 {% endfor %}
             </select>
+            <button id="random-song">随机点歌</button>
             <button id="toggle-layout">切换为列表布局</button>
         </div>
 
@@ -375,7 +376,9 @@ background-image: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.2)), ur
             <div class="song-grid">
                 {% for song in songs %}
                 {% if song.language == lang %}
-                <div class="song-card" data-song-name="{{ song.name }}">
+                <div class="song-card"
+     data-song-name="{{ song.name }}"
+     data-is-sc="{{ 'true' if song.url and song.url != '-' else 'false' }}">
                     <h4>{{ song.name }}</h4>
                     <p>歌手：{{ song.artist }}</p>
                     <p>风格：{{ song.genre }}</p>
@@ -443,12 +446,44 @@ background-image: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.2)), ur
                 alert('点歌指令已复制，快去点歌吧~');
             }
         }
+function randomSong() {
+    const songs = Array.from(
+        document.querySelectorAll('.song-card[data-is-sc="false"]')
+    );
 
+    if (songs.length === 0) {
+        alert('当前没有可随机的免费歌曲。');
+        return;
+    }
+
+    const randomIndex = Math.floor(Math.random() * songs.length);
+    const songName = songs[randomIndex].getAttribute('data-song-name');
+    const command = `点歌 ${songName}`;
+
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(command)
+            .then(() => {
+                alert(`随机点到‘${songName}’，点歌指令已复制，快去点歌吧~`);
+            })
+            .catch(() => {
+                alert('复制失败，请手动复制。');
+            });
+    } else {
+        const tempInput = document.createElement('input');
+        tempInput.value = command;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+
+        alert(`随机点到‘${songName}’，点歌指令已复制，快去点歌吧~`);
+    }
+}
         // 绑定点击事件
         document.querySelectorAll('.song-card, .song-list-table tr').forEach(element => {
             element.addEventListener('click', copySongName);
         });
-
+document.getElementById('random-song').addEventListener('click', randomSong);
         // 过滤歌曲
         function filterSongs() {
             const nameFilter = document.getElementById('filter-name').value.toLowerCase();
