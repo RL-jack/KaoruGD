@@ -274,6 +274,23 @@
                 font-size: 13px;
             }
         }
+        .announcement {
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin: 18px 0;
+    color: #333;
+}
+
+.announcement h3 {
+    margin: 0 0 10px;
+    font-size: 20px;
+}
+
+.announcement p {
+    margin: 0;
+    line-height: 1.7;
+}
     </style>
 </head>
 <body>
@@ -294,7 +311,15 @@
             <p>{{ settings.singer_intro.replace('\n','<br/>') | safe }}</p>
         </div>
     </div>
-
+    <!-- 公告栏 -->
+    {% if settings.announcement_content %}
+    <div class="announcement">
+        {% if settings.announcement_title %}
+        <h3>{{ settings.announcement_title }}</h3>
+        {% endif %}
+        <p>{{ settings.announcement_content.replace('\n', '<br>') | safe }}</p>
+    </div>
+    {% endif %}
     <!-- 歌曲列表 -->
     <div class="song-list hide-table">
         <div class="filter-bar">

@@ -26,6 +26,8 @@ DEFAULT_SETTINGS = {
     "singer_url": "/static/singer.jpg",
     "singer_name": "歌手名字",
     "singer_intro": "这里填写歌手介绍~",
+    "announcement_title": "活动公告",
+    "announcement_content": "",
 }
 
 class CaseSensitiveConfigParser(configparser.ConfigParser):
@@ -841,6 +843,8 @@ async def admin_action(request):
                 "title": form.get("title", "").strip() or current_settings.get("title", DEFAULT_SETTINGS["title"]),
                 "live_url": form.get("live_url", "").strip() or current_settings.get("live_url", DEFAULT_SETTINGS["live_url"]),
                 "singer_name": form.get("singer_name", "").strip() or current_settings.get("singer_name", DEFAULT_SETTINGS["singer_name"]),
+                "announcement_title": form.get("announcement_title", "").strip(),
+                "announcement_content": form.get("announcement_content", "").strip(),
                 "singer_intro": form.get("singer_intro", "").strip() or current_settings.get("singer_intro", DEFAULT_SETTINGS["singer_intro"]),
                 "background_url": current_settings.get("background_url", DEFAULT_SETTINGS["background_url"]),
                 "singer_url": current_settings.get("singer_url", DEFAULT_SETTINGS["singer_url"]),
