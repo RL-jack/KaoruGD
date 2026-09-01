@@ -284,9 +284,24 @@
                         placeholder="输入需要在主播介绍下方展示的内容；支持换行。内容留空时前台不会显示公告框。">{{ settings.announcement_content }}</textarea>
 
                 <p class="tips">支持多行文本；公告内容留空时，前台将隐藏整个公告框。</p>
-                <label for="live_url">直播间地址</label>
-                <input type="text" id="live_url" name="live_url" value="{{ settings.live_url }}" required>
 
+               
+                <label for="weekly_schedule">本周直播安排</label>
+<textarea id="weekly_schedule"
+          name="weekly_schedule"
+          rows="8"
+          placeholder="例如：
+周一：20:00 歌回
+周二：休息
+周三：21:00 杂谈
+周四：休息
+周五：20:00 歌回
+周六：待定
+周日：21:00 游戏回">{{ settings.weekly_schedule }}</textarea>
+
+<p class="tips">支持多行文本；内容为空时，前台不会显示周表浮窗。</p>
+ <label for="live_url">直播间地址</label>
+                <input type="text" id="live_url" name="live_url" value="{{ settings.live_url }}" required>
                 <p class="tips">当前背景：{{ settings.background_url }}</p>
                 <label>上传背景图/视频（可选）</label>
                 <input type="file" name="background_file" accept="image/*,video/mp4">

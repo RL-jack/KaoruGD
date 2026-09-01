@@ -247,6 +247,17 @@ background-image: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.2)), ur
             .navbar a { font-size: 16px; margin: 0 12px; padding: 8px 10px; }
         }
         @media (max-width: 768px) {
+        .weekly-float {
+    left: 10px;
+    bottom: 10px;
+    width: 180px;
+    padding: 10px 12px;
+    font-size: 13px;
+}
+
+.weekly-float h3 {
+    font-size: 16px;
+}
             body { background-attachment: scroll; }
             .navbar { flex-wrap: wrap; padding: 12px; gap: 8px; }
             .navbar a { font-size: 15px; margin: 4px 8px; }
@@ -308,7 +319,29 @@ background-image: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.2)), ur
     margin: 0 0 10px;
     font-size: 20px;
 }
+.weekly-float {
+    position: fixed;
+    left: 24px;
+    bottom: 24px;
+    width: 220px;
+    padding: 14px 16px;
+    background: rgba(255, 255, 255, 0.70);
+    border-radius: 14px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+    backdrop-filter: blur(8px);
+    color: #333;
+    z-index: 9999;
+}
 
+.weekly-float h3 {
+    margin: 0 0 10px;
+    font-size: 18px;
+}
+
+.weekly-float p {
+    margin: 0;
+    line-height: 1.7;
+}
 .announcement p {
     margin: 0;
     line-height: 1.7;
@@ -321,6 +354,12 @@ background-image: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.2)), ur
     <source src="{{ settings.background_url }}" type="video/mp4">
 </video>
 <div class="background-video-overlay"></div>
+{% endif %}
+{% if settings.weekly_schedule %}
+<div class="weekly-float">
+    <h3>本周直播安排</h3>
+    <p>{{ settings.weekly_schedule.replace('\n', '<br>') | safe }}</p>
+</div>
 {% endif %}
     <!-- 导航栏 -->
     <div class="navbar">

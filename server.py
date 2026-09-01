@@ -28,6 +28,7 @@ DEFAULT_SETTINGS = {
     "singer_intro": "这里填写歌手介绍~",
     "announcement_title": "活动公告",
     "announcement_content": "",
+    "weekly_schedule": "",
 }
 
 class CaseSensitiveConfigParser(configparser.ConfigParser):
@@ -845,6 +846,7 @@ async def admin_action(request):
                 "singer_name": form.get("singer_name", "").strip() or current_settings.get("singer_name", DEFAULT_SETTINGS["singer_name"]),
                 "announcement_title": form.get("announcement_title", "").strip(),
                 "announcement_content": form.get("announcement_content", "").strip(),
+                "weekly_schedule": form.get("weekly_schedule", "").strip(),
                 "singer_intro": form.get("singer_intro", "").strip() or current_settings.get("singer_intro", DEFAULT_SETTINGS["singer_intro"]),
                 "background_url": current_settings.get("background_url", DEFAULT_SETTINGS["background_url"]),
                 "singer_url": current_settings.get("singer_url", DEFAULT_SETTINGS["singer_url"]),
